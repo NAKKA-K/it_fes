@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="shift_jis">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<script>
+		//グラフを描画するためのパッケージ(corechart)の呼び出し
+		google.charts.load('current', {packages:['corechart']});
+
+		//コールバック
+		google.charts.setOnLoadCallback(drawUserChart);
+
+		function drawUserChart(){
+			//データの作成(JSONデータを埋め込む)
+			//TODO:(X軸が15項目くらいなら表示できるが、それ以上だと固まりすぎて見辛いため対策が必要)
+			var data = google.visualization.arrayToDataTable([
+				['日時','アクセス数'],
+				['05/01 14:00', 1000],
+				['05/01 14:30', 690],
+				['05/01 15:00', 300],
+				['05/01 15:30', 130],
+				['05/01 15:00', 780],
+				['05/01 15:30', 310],
+				['05/01 15:00', 180],
+				['05/01 15:30', 1310],
+				['05/01 15:00', 1780],
+				['05/01 15:00', 1680],
+				['05/01 15:30', 110],
+				['05/01 15:00', 780],
+				['05/01 15:30', 1310],
+				['05/01 15:00', 1170],
+				['05/01 15:30', 1310]
+			]);
+
+			//タイトル、サイズの設定
+			var options = {
+				title:'WiFi接続状況',
+				height:650
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+	</script>
+</head>
+<body>
+	<div id="chart_div" style="width: 100%;"></div>
+</body>
+</html>
