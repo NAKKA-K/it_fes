@@ -1,39 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="shift_jis">
+	<meta charset="UTF-8">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 	<script type="text/javascript">
-		//var obj = JSON.parse('[["14:00",10],["14:30",20]]');//いけた
-
+	//var obj = JSON.parse('[["14:00",10],["14:30",20]]');//ok
+	$(function(){
 		//jQuery test
 		if(typeof jQuery != "undefined"){
-			$(function(){
-				console.log("jQueryが使用可能です。");
-			});
+			console.log("jQuery on ready.");
 		}
 
-
-		//毎回読み込めずにfailになってしまう
-		//理由は分からない
-		$(function(){
-			$.ajax({
-				url:'sample.json'
-			}).done(function(data){
-				console.log("done");
-				console.log(data[0]);
-				//var obj = $.parseJSON(data);
-				//console.log(obj[0]);
-			}).fail(function(){
-				console.log("fail");
-			});
+		//fail
+		$.getJSON("data.json",function(data){
+			console.log(typeof data);
 		});
-
+		$.get("data.json" , function(data){
+			console.log(data);
+		});
+	});
 
 	</script>
+
 </head>
 <body>
-
 </body>
 </html>

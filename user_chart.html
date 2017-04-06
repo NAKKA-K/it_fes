@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="shift_jis">
+	<meta charset="UTF-8">
 	<!-- jQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" type="text/javascript" ></script>
 	<!-- Google Chart API -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<script>
-		//ƒOƒ‰ƒt‚ğ•`‰æ‚·‚é‚½‚ß‚ÌƒpƒbƒP[ƒW(corechart)‚ÌŒÄ‚Ño‚µ
+		//corechartã§ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
 		google.charts.load('current', {packages:['corechart']});
 
-		//ƒR[ƒ‹ƒoƒbƒN
+		//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°è¨­å®š
 		google.charts.setOnLoadCallback(drawUserChart);
 
 		function drawUserChart(){
-			//ƒf[ƒ^‚Ìì¬(JSONƒf[ƒ^‚ğ–„‚ß‚Ş)
-			//TODO:(X²‚ª15€–Ú‚­‚ç‚¢‚È‚ç•\¦‚Å‚«‚é‚ªA‚»‚êˆÈã‚¾‚ÆŒÅ‚Ü‚è‚·‚¬‚ÄŒ©h‚¢‚½‚ß‘Îô‚ª•K—v)
+			//TODO:JSONãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚“ã§è¨­å®šã™ã‚‹
 			var data = google.visualization.arrayToDataTable([
-				['“ú','ƒAƒNƒZƒX”'],
+				['æ—¥æ™‚','ã‚¢ã‚¯ã‚»ã‚¹æ•°'],
 				['05/01 14:00', 1000],
 				['05/01 14:30', 690],
 				['05/01 15:00', 300],
@@ -37,9 +36,9 @@
 			]);
 
 
-			//ƒ^ƒCƒgƒ‹AƒTƒCƒY‚Ìİ’è
+			//
 			var options = {
-				title:'WiFiÚ‘±ó‹µ',
+				title:'WiFiã‚¢ã‚¯ã‚»ã‚¹æ•°',
 				height:650
 			};
 			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
