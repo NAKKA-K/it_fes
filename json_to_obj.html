@@ -2,20 +2,35 @@
 <html>
 <head>
 	<meta charset="shift_jis">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 	<script type="text/javascript">
-		if(window.JSON){
-			consol.log("JSON installed.");
-		}else{
-			consol.log("JSON don't installed.");			
-		}
-		var obj = JSON.parse('[
-			["05/01 14:00",1000],
-			["05/01 14:30",100],
-			["05/01 15:00",500]
-		]');
+		//var obj = JSON.parse('[["14:00",10],["14:30",20]]');//いけた
 
-		consol.log(obj);
+		//jQuery test
+		if(typeof jQuery != "undefined"){
+			$(function(){
+				console.log("jQueryが使用可能です。");
+			});
+		}
+
+
+		//毎回読み込めずにfailになってしまう
+		//理由は分からない
+		$(function(){
+			$.ajax({
+				url:'sample.json'
+			}).done(function(data){
+				console.log("done");
+				console.log(data[0]);
+				//var obj = $.parseJSON(data);
+				//console.log(obj[0]);
+			}).fail(function(){
+				console.log("fail");
+			});
+		});
+
+
 	</script>
 </head>
 <body>
