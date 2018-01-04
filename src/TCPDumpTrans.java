@@ -1,44 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*TODO:timeout 29m sudo tcpdump -nl not port ssh and arp > tcpdump.txt ;  java TCPDumpTrans < tcpdump.txt ã§ä½¿ç”¨ã™ã‚‹
- * java TCPDumpTrans < sudo tcpdump -nl not port ssh and arp //åå‰è§£æ±ºã—ãªã„ã€ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ã™ã‚‹ã€sshã¨arpã¯å¼¾ãã€ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã§å…¥åŠ›
- *Dompå†…å®¹ã‹ã‚‰ã€é€ä¿¡å…ƒIPã‚’æŠ½å‡ºã™ã‚‹
- *æŠ½å‡ºã—ãŸIPã‚’HashSetã«è¿½åŠ ã™ã‚‹
- *(ä¸Šã‚’5åˆ†é–“ã€ã¾ãŸã¯æœ€å¾Œã®è¡Œã¾ã§ç¶šã‘ã‚‹)
- *çµ‚ã‚ã‚Œã°HashSet.size()ã‚’å–å¾—ã€‚
- *ç´°ã‹ã„æ™‚é–“ã§ã¯ãªãX:00ã€X:30ã¨ã„ã£ãŸã‚ˆã†ã«30åˆ†åˆ»ã¿ã®å¤§ã¾ã‹ãªæ™‚åˆ»è¡¨æ©Ÿã§æ’å‡ºã™ã‚‹å¿…è¦ã‚ã‚Š
- *(ã™ã§ã«JSONãŒã‚ã‚‹å ´åˆã€ç¾åœ¨ä½•è¡Œã‚ã‚‹ã‹èª¿ã¹ã¦15è¡Œç¨‹åº¦ã«æŠ‘ãˆã‚‹å¿…è¦ã‚ã‚Š)
- *æ™‚é–“ã¨ã¨ã‚‚ã«sizeã‚’JSONã«å‡ºåŠ›
+/*TODO:timeout 29m sudo tcpdump -nl not port ssh and arp > tcpdump.txt ;  java TCPDumpTrans < tcpdump.txt ‚Åg—p‚·‚é
+ * java TCPDumpTrans < sudo tcpdump -nl not port ssh and arp //–¼‘O‰ğŒˆ‚µ‚È‚¢Aƒoƒbƒtƒ@ƒŠƒ“ƒO‚·‚éAssh‚Æarp‚Í’e‚­AƒŠƒ_ƒCƒŒƒNƒg‚Å“ü—Í
+ *Domp“à—e‚©‚çA‘—MŒ³IP‚ğ’Šo‚·‚é
+ *’Šo‚µ‚½IP‚ğHashSet‚É’Ç‰Á‚·‚é
+ *(ã‚ğ5•ªŠÔA‚Ü‚½‚ÍÅŒã‚Ìs‚Ü‚Å‘±‚¯‚é)
+ *I‚í‚ê‚ÎHashSet.size()‚ğæ“¾B
+ *×‚©‚¢ŠÔ‚Å‚Í‚È‚­X:00AX:30‚Æ‚¢‚Á‚½‚æ‚¤‚É30•ª‚İ‚Ì‘å‚Ü‚©‚È•\‹@‚Å”ro‚·‚é•K—v‚ ‚è
+ *(‚·‚Å‚ÉJSON‚ª‚ ‚éê‡AŒ»İ‰½s‚ ‚é‚©’²‚×‚Ä15s’ö“x‚É—}‚¦‚é•K—v‚ ‚è)
+ *ŠÔ‚Æ‚Æ‚à‚Ésize‚ğJSON‚Éo—Í
  */
 
 public class TCPDumpTrans {
+	private static boolean isQuit = false;
+	private static BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+
 	public static void main(String[] args) {
-		HashSet<String> outputSet = new HashSet<String>();
-		readLine(outputSet);
+		while(isQuit == false){//í‹N“®
+			HashSet<String> outputSet = new HashSet<String>();
+			readLine(outputSet);
 
 
-		printSetTest(outputSet); //HACK: test
-		System.out.println(outputSet.size() - 1); //HACK: test
+			printSetTest(outputSet); //HACK: test
+			System.out.println("IP”:" + (outputSet.size() - 1)); //HACK: test
 
 
-		JsonManager jsonMgr = new JsonManager();
-		jsonMgr.createJsonFile(outputSet.size() - 1);
-		return;
+			JsonManager jsonMgr = new JsonManager();
+			jsonMgr.createJsonFile(outputSet.size() - 1);
+		}
 	}
 
 
 	static void readLine(HashSet<String> outputSet){
-		Scanner stdin = new Scanner(System.in);
+		//Scanner stdin = new Scanner(System.in);
 		String dumpLine = "";
-		outputSet.add(dumpLine); //ç©ºè¡ŒãŒæ··ã˜ã‚‹å ´åˆãŒã‚ã‚‹ã®ã§ã€å…ˆã«å…¥ã‚Œã¦ãŠã„ã¦-1ã™ã‚‹æ–¹æ³•
+		outputSet.add(dumpLine); //‹ós‚ª¬‚¶‚éê‡‚ª‚ ‚é‚Ì‚ÅAæ‚É“ü‚ê‚Ä‚¨‚¢‚Ä-1‚·‚é•û–@
 
 		try{
-			float startTimeS = CurrentDate.getCurrentTimeSecond();
-			while((dumpLine = stdin.nextLine()).equals("") == false){
+			long startTimeS = CurrentDate.getCurrentTimeMili();
+			System.out.println(CurrentDate.getCurrentTimeMili() - startTimeS); //HACK: test
+
+			while((CurrentDate.getCurrentTimeMili() - startTimeS) <= (5*60*1000)){ //5m loop
+				 //•W€“ü—Í‚Éƒf[ƒ^‚ª‚ ‚éê‡‚Ì‚İreadLine‚·‚é
+				//‚±‚ê‚ğ‚µ‚È‚¯‚ê‚ÎƒvƒƒOƒ‰ƒ€‚ªwait‚µ‚Ä‚µ‚Ü‚Á‚Ä’·ŠÔ“®‚©‚È‚­‚È‚é
+				if(System.in.available() != 0){
+					dumpLine = stdin.readLine(); //bufferedReader
+				}
+
 				String ip = ipExtraction(dumpLine);
 				if(isFinPacketIp(dumpLine)){
 					outputSet.remove(ip);
@@ -46,28 +60,29 @@ public class TCPDumpTrans {
 					outputSet.add(ip);
 				}
 			}
-		}catch(NoSuchElementException e){ //EOFå¯¾ç­–
+
+			System.out.println(CurrentDate.getCurrentTimeMili() - startTimeS);
+		}catch(NoSuchElementException e){ //EOF‘Îô
+			System.out.println("-->exception: EOF‚Å‚ ‚é‰Â”\«‚ª‚‚¢");
+		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("-->exception: EOFã§ã‚ã‚‹å¯èƒ½æ€§ãŒé«˜ã„(ãã®å ´åˆå•é¡Œãªã„)");
 		}finally{
-			System.out.println("å…¥åŠ›å—ä»˜çµ‚äº†--------------------");
-			stdin.close();
+			System.out.println("“ü—Íó•tI—¹--------------------");
 		}
 		return;
 	}
 
 
-	/*å—ã‘å–ã£ãŸdumpLineã‹ã‚‰IPã‚¢ãƒ‰ãƒ¬ã‚¹ã ã‘ã‚’æŠ½å‡ºã—ã¦è¿”ã™
+	/*ó‚¯æ‚Á‚½dumpLine‚©‚çIPƒAƒhƒŒƒX‚¾‚¯‚ğ’Šo‚µ‚Ä•Ô‚·
 	 */
 	static String ipExtraction(String dumpLine){
-		Pattern pattern = Pattern.compile("IP (.*?)\\.(.*?)\\.(.*?)\\.(.*?)\\."); //IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®ãƒãƒ¼ãƒˆç•ªå·
+		Pattern pattern = Pattern.compile("IP (.*?)\\.(.*?)\\.(.*?)\\.(.*?)\\."); //IPƒAƒhƒŒƒX‚Ìƒ|[ƒg”Ô†
 		Matcher matcher = pattern.matcher(dumpLine);
 
 		String ip = "";
 		if(matcher.find()){
 			ip = dumpLine.substring(matcher.start() + 3, matcher.end() - 1);
 		}
-		System.out.println(ip);
 		return ip;
 	}
 

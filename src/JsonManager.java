@@ -11,9 +11,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JsonManager {
-	static TreeMap<String, Integer> jsonLine = new TreeMap<String, Integer>();
+	static TreeMap<String, Integer> jsonLine;
 
 	static void createJsonFile(int ipNum){
+		jsonLine = new TreeMap<String, Integer>();
+
 		try {
 			String currentDate = CurrentDate.getCurrentDayTime();
 
@@ -21,9 +23,9 @@ public class JsonManager {
 			if(file.exists()){
 				readJsonToMap(file);
 			}
-			jsonLine.put(currentDate, ipNum); //æ–°ã—ã„ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
+			jsonLine.put(currentDate, ipNum); //V‚µ‚¢ƒf[ƒ^‚Ì’Ç‰Á
 
-			//å…¨éƒ¨å…¥ã‚ŒãŸå¾Œã€æ›¸ãè¾¼ã¿
+			//‘S•”“ü‚ê‚½ŒãA‘‚«‚İ
 			PrintWriter fileout = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 			fileout.println("[");
 			for(String key : jsonLine.keySet()){
@@ -34,6 +36,7 @@ public class JsonManager {
 				}
 			}
 			fileout.println("]\n");
+			fileout.flush();
 			fileout.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -49,20 +52,21 @@ public class JsonManager {
 			String line = "";
 			int lineNum = 0;
 			while((line = jsonReader.readLine()).equals("") == false){
-				System.out.println(line);
+				System.out.println(line); //HACK: test
 				if(putJsonFormatMatch(line) ==  true) lineNum++;
 			}
-			System.out.println(lineNum);
 			for(int i = lineNum; i > 14; i--){
 				jsonLine.pollFirstEntry();
 			}
 			jsonReader.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("fileãŒãªã„");
+			System.out.println("file‚ª‚È‚¢");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼");
+			System.out.println("“üo—ÍƒGƒ‰[");
 			e.printStackTrace();
+		} catch(NullPointerException e){
+
 		}
 
 		return;
