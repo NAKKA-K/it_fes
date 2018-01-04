@@ -8,19 +8,19 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<script>
-		//corechartã§ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
+		//corechart‚Åg‚¦‚é‚æ‚¤‚É‚·‚é
 		google.charts.load('current', {packages:['corechart']});
 
-		//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°è¨­å®š
+		//ƒR[ƒ‹ƒoƒbƒNŠÖ”İ’è
 		google.charts.setOnLoadCallback(drawUserChart);
 
 		function drawUserChart(){
-			//ã‚°ãƒ©ãƒ•ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ãŸã‚ã®tableã‚’ä½œæˆ
+			//ƒOƒ‰ƒt‚Ìƒf[ƒ^‚ğİ’è‚·‚é‚½‚ß‚Ìtable‚ğì¬
 			var datas = new google.visualization.DataTable();
 
 			//Add column
-			datas.addColumn("string", "æ—¥æ™‚");
-			datas.addColumn("number", "ã‚¢ã‚¯ã‚»ã‚¹æ•°");
+			datas.addColumn("string", "“ú");
+			datas.addColumn("number", "ƒAƒNƒZƒX”");
 
 			//jQuery
 			$(function(){
@@ -32,7 +32,7 @@
 					datas.addRows(json_obj);
 					//Set option
 					var options = {
-						title:'WiFiã‚¢ã‚¯ã‚»ã‚¹æ•°',
+						title:'WiFiƒAƒNƒZƒX”',
 						height:650
 					};
 
